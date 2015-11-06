@@ -110,11 +110,12 @@ ReactCompositeComponentMixin.mountComponent = function(rootID, transaction, cont
     this._currentElement.type // The wrapping type
   );
 
+  var childContext = this._getValidatedChildContext();
   var markup = ReactReconciler.mountComponent(
     this._renderedComponent,
     rootID,
     transaction,
-    this._processChildContext(context)
+    this._mergeChildContext(context, childContext)
   );
   if (inst.componentDidMount) {
     transaction.getReactMountReady().enqueue(inst.componentDidMount, inst);
